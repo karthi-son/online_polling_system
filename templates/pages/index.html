@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <!-- Hero Section -->
+<section class="hero-section d-flex align-items-center py-5" style="background-color: #FFFFFF; color: black; height: 100vh;">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Text Content -->
+            <div class="col-lg-6 col-md-12 text-center text-lg-start mb-4 mb-lg-0">
+                <h1 class="display-4 mb-4">Welcome to the Online Polling System</h1>
+                <p class="lead" style="color: rgb(102, 102, 102); background-color: rgba(0, 0, 0, 0); font-family: 'Manrope', sans-serif; font-size: 18px; line-height: 26px; font-weight: 400; text-align: start;">
+                    Secure, seamless, and user-friendly voting for all your polls and surveys.
+                    Our platform ensures a fair and transparent voting process, giving everyone a voice.
+                    Join millions of users who trust us to host their polls and surveys with ease and security.
+                </p>
+                <a href="{% url 'polls:index' %}" class="btn btn-outline-primary btn-lg mt-3">Explore Polls</a>
+                <a href="#features" class="btn btn-primary btn-lg mt-3 mx-2">Features</a>
+            </div>
+            <!-- Image Content -->
+            <div class="col-lg-6 col-md-12 text-center">
+                <img src="{% static 'image/banner1.jpg' %}" class="img-fluid" alt="Banner Img" style="height: 80vh; width: 100%; object-fit: cover;">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    
+
+
+<!-- Features Section -->
+<section id="features" class="py-5" style="background-color: #F2F4F7;">
+    <div class="container">
+        <!-- Key Features Heading -->
+        <h2 class="text-center display-4 mb-4" style="color: #333333;">
+            Features
+        </h2>
+        <!-- Paragraph Content -->
+        <p class="text-center" style="color: rgb(102, 102, 102); background-color: rgba(0, 0, 0, 0); font-family: 'Manrope', sans-serif; font-size: 18px; line-height: 26px; font-weight: 400; text-align: start;">
+            Explore the powerful features that make our online polling system efficient and user-friendly.
+            Our platform ensures a seamless experience for both administrators and voters.
+        </p>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="{% static 'image/img1.jpg' %}" class="card-img-top" alt="User Authentication" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold" style="color: #333333;">User Authentication</h5>
+                        <p class="card-text" style="color: #555555;">Secure login and role-based access for admins and regular users.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="{% static 'image/img2.jpg' %}" class="card-img-top" alt="Poll Management" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold" style="color: #333333;">Poll Management</h5>
+                        <p class="card-text" style="color: #555555;">Admins can create, edit, and manage polls with customizable durations.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="{% static 'image/img3.jpg' %}" class="card-img-top" alt="Voting System" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold" style="color: #333333;">Voting System</h5>
+                        <p class="card-text" style="color: #555555;">Fair voting with one vote per poll and real-time results display.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row g-4 mt-3">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="{% static 'image/img4.jpg' %}" class="card-img-top" alt="Analytics and Reporting" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold" style="color: #333333;">Analytics and Reporting</h5>
+                        <p class="card-text" style="color: #555555;">Graphical representations and detailed insights for each poll.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="{% static 'image/img5.jpg' %}" class="card-img-top" alt="Responsive Design" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold" style="color: #333333;">Responsive Design</h5>
+                        <p class="card-text" style="color: #555555;">Optimized for mobile, tablet, and desktop devices.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="{% static 'image/img6.jpg' %}" class="card-img-top" alt="Secure Data Handling" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold" style="color: #333333;">Secure Data Handling</h5>
+                        <p class="card-text" style="color: #555555;">Data encryption and robust validation mechanisms for security.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+    <!-- Contact Section -->
+    <!-- <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-4" style="color: black;">Contact Us</h2>
+            <form>
+                <div class="mb-3">
+                    <label for="name" class="form-label" style="color: black;">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label" style="color: black;">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label" style="color: black;">Message</label>
+                    <textarea class="form-control" id="message" rows="4" placeholder="Your message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </section> -->
+{% endblock %}

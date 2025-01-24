@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="d-flex justify-content-center align-items-center min-vh-100">
+                <div class="card p-4" style="max-width: 500px; width: 100%; background-color:#FFFFFF ; color:#080809;">
+                    <div class="card-body">
+                        <h3 class="card-title text-center mb-4">Log In</h3>
+            
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                                <!-- <legend class="sr-only">Log In</legend> -->
+                                {{ form|crispy }}
+                            </fieldset>
+                            
+                            <div class="form-group d-grid">
+                                <button type="submit" class="btn btn-primary w-100">Log In</button>
+                            </div>
+                        </form>
+            
+                        <div class="text-center mt-4 border-top pt-3">
+                            <small class="text-muted" style="color: #080809 !important;">
+                                Need An Account? 
+                                <a href="{% url 'register' %}" class="text-primary">Sign Up Now</a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

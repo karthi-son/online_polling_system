@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-4 text-dark display-5">Poll Questions</h1>
+    {% if latest_question_list %}
+        {% for question in latest_question_list %}
+        <div class="card mb-4" style="border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+            <div class="card-body" style="background-color: #ffffff; color: #333; border-radius: 10px;">
+                <p class="lead">{{ question.question_text }}</p>
+                <div class="d-flex justify-content-start gap-3">
+                    <a href="{% url 'polls:detail' question.id %}" class="btn btn-custom btn-sm" style="color: white; font-weight: bold;">
+                        <i class="fas fa-arrow-right me-2"></i> Vote Now
+                    </a>
+                    <a href="{% url 'polls:results' question.id %}" class="btn btn-custom-outline btn-sm" style="font-weight: bold; padding: 10px 20px;">
+                        <i class="fas fa-signal me-2"></i> See Results
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-center">No polls available</p>
+    {% endif %}
+</div>
+
+<!-- Include Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<style>
+    /* Card styling */
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease-in-out; /* Transition effect for card */
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+    }
+
+    .card-body {
+        background-color: #fff;
+        color: #333;
+        border-radius: 10px;
+    }
+
+    /* Vote Now Button Styling */
+    .btn-custom {
+        background-color: #28a745; /* Green color for Vote Now */
+        color: white;
+        border-color:2px solid #28a745;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn-custom:hover {
+        background-color: #1e7e34; /* Slightly darker green on hover */
+        border-color: #1e7e34;
+        color: white;
+    }
+
+    /* See Results Button Styling */
+    .btn-custom-outline {
+        background-color: #007bff; /* Bootstrap primary color */
+        color: white;
+        border: 2px solid #007bff;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn-custom-outline:hover {
+        background-color: #0056b3; /* Slightly darker primary color on hover */
+        border-color: #0056b3;
+        color: white;
+    }
+
+    /* Heading */
+    h1 {
+        color: #333;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    /* Button container */
+    .d-flex {
+        justify-content: start; /* Align buttons to the left */
+        gap: 20px; /* Add space between buttons */
+    }
+
+    /* For smaller screens, make buttons a bit smaller */
+    .btn-sm {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+
+    /* Icon spacing */
+    .me-2 {
+        margin-right: 0.5rem; /* Space between icon and text */
+    }
+</style>
+
+{% endblock %}

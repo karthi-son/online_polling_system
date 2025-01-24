@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<h2 class="mt-4 mb-4 text-center display-5" style="color: black;">{{ question.question_text }}</h2>
+
+<div class="container">
+    <div class="row">
+        <!-- Vote List Column -->
+        <div class="col-12 col-md-6">
+            <ul class="list-group mt-5">
+                {% for choice in question.choice_set.all %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3"
+                        style="border: 1px solid #E3E8F0; background-color: #ffffff;">
+                        <span style="font-weight: 600; font-size: 1.1rem; color: #000000;">
+                            {{ choice.choice_text }}
+                        </span>
+                        <span class="badge" style="background-color: #28A745; color: white; font-size: 1rem;">
+                            {{ choice.votes }} vote{{ choice.votes | pluralize }}
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="mt-4">
+                <!-- Back to Polls Button -->
+                <a class="btn btn-primary" href="{% url 'polls:index' %}">
+                    <i class="bi bi-arrow-left"></i> Back To Polls
+                </a>
+
+                <!-- Live Result Button -->
+                <button class="btn btn-outline-success" style="display: inline-flex; align-items: center; pointer-events: none; cursor: default;">
+                    <div style="border-radius: 50%; width: 20px; height: 20px; background-color: #28A745; margin-right: 10px; position: relative;">
+                        <div style="width: 12px; height: 12px; background-color: white; border-radius: 50%; position: absolute; top: 4px; left: 4px;"></div>
+                    </div>
+                    Live Result
+                </button>
+            </div>
+        </div>
+
+        <!-- Chart Column -->
+        <div class="col-12 col-md-6">
+            <div class="mb-5" id="myChart"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var state = {
+        'items': [],
+        'values': [],
+        'percentages': [],
+    };
+
+    var objId = "{{ question.id }}";
+    var dataURL = `/polls/resultsdata/${objId}/`;
+
+    $.ajax({
+        method: "GET",
+        url: dataURL,
+        success: function(response) {
+            var totalVotes = 0;
+
+            for (var i in response) {
+                var value = Object.values(response[i])[0];
+                totalVotes += value;
+            }
+
+            for (var i in response) {
+                var key = Object.keys(response[i])[0];
+                var value = Object.values(response[i])[0];
+                state.items.push(key);
+                state.values.push(value);
+                var percentage = ((value / totalVotes) * 100).toFixed(2);
+                state.percentages.push(percentage + '%');
+            }
+
+            buildChart();
+        }
+    });
+
+    function buildChart() {
+        var chartData = {
+            "type": "mixed",
+            "background-color": "transparent",
+            "scale-x": {
+                "values": state.items,
+                "item": {
+                    "font-size": "14px",
+                    "font-weight": "bold",
+                    "font-color": "#333"
+                }
+            },
+            "scale-y": {
+                "label": {
+                    "font-size": "14px",
+                    "font-weight": "bold",
+                    "font-color": "#333"
+                }
+            },
+            "series": [
+                {
+                    "type": "bar",
+                    "values": state.values,
+                    "background-color": "#28A745",
+                },
+                
+            ],
+            "tooltip": {
+                "background-color": "#333",
+                "font-color": "#fff",
+                "font-size": "14px",
+                "font-weight": "bold",
+                "text": "%kl<br>%v votes<br>%plot-percent%"
+            }
+        };
+
+        zingchart.render({
+            id: 'myChart',
+            data: chartData,
+        });
+    }
+</script>
+
+{% endblock %}
