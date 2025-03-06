@@ -8,7 +8,7 @@
             <div class="card-body" style="background-color: #ffffff; color: #333; border-radius: 10px;">
                 <p class="lead">{{ question.question_text }}</p>
                 <div class="d-flex justify-content-start gap-3">
-                    <a href="{% url 'polls:detail' question.id %}" class="btn btn-custom btn-sm" style="color: white; font-weight: bold;">
+                    <a href="{% url 'polls:detail' question.id %}" class="btn btn-custom btn-sm">
                         <i class="fas fa-arrow-right me-2"></i> Vote Now
                     </a>
                     <a href="{% url 'polls:results' question.id %}" class="btn btn-custom-outline btn-sm" style="font-weight: bold; padding: 10px 20px;">
@@ -27,15 +27,15 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
 <style>
-    /* Card styling */
+   
     .card {
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        transition: box-shadow 0.3s ease-in-out; /* Transition effect for card */
+        transition: box-shadow 0.3s ease-in-out; 
     }
 
     .card:hover {
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); 
     }
 
     .card-body {
@@ -44,26 +44,26 @@
         border-radius: 10px;
     }
 
-    /* Vote Now Button Styling */
+    
     .btn-custom {
-        background-color: #28a745; /* Green color for Vote Now */
+        background-color: #28a745; 
         color: white;
         border-color:2px solid #28a745;
         border-radius: 5px;
         font-size: 1rem;
         font-weight: bold;
-        transition: background-color 0.3s, color 0.3s;
+        
     }
 
     .btn-custom:hover {
-        background-color: #1e7e34; /* Slightly darker green on hover */
+        background-color: #1e7e34; 
         border-color: #1e7e34;
         color: white;
     }
 
-    /* See Results Button Styling */
+    
     .btn-custom-outline {
-        background-color: #007bff; /* Bootstrap primary color */
+        background-color: #007bff;
         color: white;
         border: 2px solid #007bff;
         border-radius: 5px;
@@ -73,33 +73,31 @@
     }
 
     .btn-custom-outline:hover {
-        background-color: #0056b3; /* Slightly darker primary color on hover */
+        background-color: #0056b3; 
         border-color: #0056b3;
         color: white;
     }
 
-    /* Heading */
+   
     h1 {
         color: #333;
         font-size: 2rem;
         font-weight: bold;
     }
 
-    /* Button container */
     .d-flex {
-        justify-content: start; /* Align buttons to the left */
-        gap: 20px; /* Add space between buttons */
+        justify-content: start;
+        gap: 20px; 
     }
 
-    /* For smaller screens, make buttons a bit smaller */
+
     .btn-sm {
         font-size: 0.9rem;
         padding: 8px 15px;
     }
 
-    /* Icon spacing */
     .me-2 {
-        margin-right: 0.5rem; /* Space between icon and text */
+        margin-right: 0.5rem; 
     }
 </style>
 

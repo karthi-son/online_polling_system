@@ -48,80 +48,59 @@
 </div>
 
 <script>
-    var state = {
-        'items': [],
-        'values': [],
-        'percentages': [],
-    };
+    // Store poll data
+var pollData = {
+    options: [],
+    voteCounts: [], 
+    votePercentages: [] 
+};
 
-    var objId = "{{ question.id }}";
-    var dataURL = `/polls/resultsdata/${objId}/`;
+// Fetch poll results
+$.ajax({
+    method: "GET",
+    url: `/polls/resultsdata/{{ question.id }}/`, 
+    success: function(response) {
+        processPollResults(response);
+    }
+});
 
-    $.ajax({
-        method: "GET",
-        url: dataURL,
-        success: function(response) {
-            var totalVotes = 0;
+function processPollResults(response) {
+    let totalVotes = 0;
 
-            for (var i in response) {
-                var value = Object.values(response[i])[0];
-                totalVotes += value;
-            }
-
-            for (var i in response) {
-                var key = Object.keys(response[i])[0];
-                var value = Object.values(response[i])[0];
-                state.items.push(key);
-                state.values.push(value);
-                var percentage = ((value / totalVotes) * 100).toFixed(2);
-                state.percentages.push(percentage + '%');
-            }
-
-            buildChart();
-        }
+    response.forEach(choice => {
+        let votes = Object.values(choice)[0]; 
+        totalVotes += votes;
     });
 
-    function buildChart() {
-        var chartData = {
-            "type": "mixed",
-            "background-color": "transparent",
-            "scale-x": {
-                "values": state.items,
-                "item": {
-                    "font-size": "14px",
-                    "font-weight": "bold",
-                    "font-color": "#333"
-                }
-            },
-            "scale-y": {
-                "label": {
-                    "font-size": "14px",
-                    "font-weight": "bold",
-                    "font-color": "#333"
-                }
-            },
-            "series": [
-                {
-                    "type": "bar",
-                    "values": state.values,
-                    "background-color": "#28A745",
-                },
-                
-            ],
-            "tooltip": {
-                "background-color": "#333",
-                "font-color": "#fff",
-                "font-size": "14px",
-                "font-weight": "bold",
-                "text": "%kl<br>%v votes<br>%plot-percent%"
-            }
-        };
+    response.forEach(choice => {
+        let choiceName = Object.keys(choice)[0]; 
+        let votes = Object.values(choice)[0]; 
+        
+        pollData.options.push(choiceName);
+        pollData.voteCounts.push(votes);
+        pollData.votePercentages.push(((votes / totalVotes) * 100).toFixed(2) + '%');
+    });
 
-        zingchart.render({
-            id: 'myChart',
-            data: chartData,
-        });
-    }
+    renderPollChart();
+}
+
+function renderPollChart() {
+    zingchart.render({
+        id: 'myChart', 
+        data: {
+            type: "bar", 
+            "background-color": "transparent",
+            "scale-x": { values: pollData.options },  
+            "series": [{ 
+                type: "bar", 
+                values: pollData.voteCounts, 
+                "background-color": "#28A745" 
+            }],
+            tooltip: { "text": "%kl<br>%v votes<br>%plot-percent%" }
+        }
+    });
+}
+
 </script>
 
 {% endblock %}

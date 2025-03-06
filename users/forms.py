@@ -4,16 +4,17 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
 
-class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField() # Required is True in default. So i keep it default
+class UserRegisterForm(UserCreationForm): 
+    email = forms.EmailField() 
 
-    class Meta:
-        model = User # Whenever the form is validate it is going to create a new user
+    class Meta:        
+        # Specifies the model and fields to use.               
+        model = User 
         fields = ['username', 'email', 'password1', 'password2']
 
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()  # This For Additional Field
+    email = forms.EmailField()  
 
     class Meta:
         model = User
