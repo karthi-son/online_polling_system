@@ -39,7 +39,7 @@ def vote(request, question_id):
     
     question = get_object_or_404(Question, pk=question_id)
 
-    
+    # Check the user is already voted or not
     user_vote = UserVote.objects.filter(user=request.user, question=question).first()
     if user_vote:
         return render(request, 'polls/detail.html', {
