@@ -5,6 +5,8 @@ from django.urls import reverse
 from django.http import Http404
 
 
+
+
 from .models import Question, Choice, UserVote
 from django.http import JsonResponse
 
@@ -52,7 +54,7 @@ def vote(request, question_id):
     selected_choice = question.choice_set.filter(pk=choice_id).first()  
 
     
-    if not selected_choice:
+    if not selected_choice:  
         return render(request, 'polls/detail.html', {
             'question': question,
             'error_message': "You didn't select a choice.",
@@ -74,9 +76,13 @@ def resultsData(request, obj):
     votedata = []
 
     question = Question.objects.get(id=obj)
-    votes = question.choice_set.all()
 
-    for i in votes:
-        votedata.append({i.choice_text:i.votes})
+    choices = question.choice_set.all()  
+
+    for i in choices:  
+        votedata.append({i.choice_text: i.votes})
 
     return JsonResponse(votedata, safe=False)
+
+
+
