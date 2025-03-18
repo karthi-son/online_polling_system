@@ -49,24 +49,29 @@
 </div>
 
 <script>
-    // Store poll data
-var pollData = {
-    options: [],
-    voteCounts: [], 
-    votePercentages: [] 
-};
 
-// Fetch poll results
-$.ajax({
-    method: "GET",
-    url: `/polls/resultsdata/{{ question.id }}/`, 
-    success: function(response) {
-        processPollResults(response);
-    }
-});
+// Function to fetch and update poll results
+function fetchPollResults() {
+    $.ajax({
+        method: "GET",
+        url: `/polls/resultsdata/{{ question.id }}/`, 
+        success: function(response) {
+            updatePollData(response);
+        },
+        error: function(err) {
+            console.error("Error fetching poll results:", err);
+        }
+    });
+}
 
-function processPollResults(response) {
+// Function to process and update poll data
+function updatePollData(response) {
     let totalVotes = 0;
+    
+    // Reset poll data
+    pollData.options = [];
+    pollData.voteCounts = [];
+    pollData.votePercentages = [];
 
     response.forEach(choice => {
         let votes = Object.values(choice)[0]; 
@@ -85,6 +90,7 @@ function processPollResults(response) {
     renderPollChart();
 }
 
+// Function to render the chart
 function renderPollChart() {
     zingchart.render({
         id: 'myChart', 
@@ -101,6 +107,20 @@ function renderPollChart() {
         }
     });
 }
+
+// Store poll data
+var pollData = {
+    options: [],
+    voteCounts: [], 
+    votePercentages: [] 
+};
+
+// Fetch and update poll data initially
+fetchPollResults();
+
+// Auto-refresh poll data every 5 seconds
+setInterval(fetchPollResults, 5000);
+
 
 </script>
 

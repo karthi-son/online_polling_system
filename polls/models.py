@@ -19,7 +19,7 @@ class Choice(models.Model):
 
 class UserVote(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)  
+    question = models.ForeignKey(Question, on_delete=models.CASCADE,related_name='user_question')  
     vote_count = models.IntegerField(default=0)  
     
 

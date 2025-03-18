@@ -27,19 +27,20 @@
                     <div class="poll-options">
                         {% for choice in question.choice_set.all %}
                         <label class="form-check-label poll-option d-flex align-items-center mb-3 p-3 bg-white shadow-sm" for="choice{{ forloop.counter }}">
-                            <input class="form-check-input me-3" type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-                            <span class="text-dark">{{ choice.choice_text }}</span> <!-- Text in black -->
+                            <input class="form-check-input me-3" type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" {% if has_voted %} disabled {% endif %}>
+                            <span class="text-dark">{{ choice.choice_text }}</span>
                         </label>
                         {% endfor %}
                     </div>
-
+                
                     <!-- Vote Button -->
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-custom btn-lg">
+                        <button type="submit" class="btn btn-custom btn-lg" {% if has_voted %} disabled {% endif %}>
                             Vote Now <i class="fas fa-arrow-right ms-2"></i>
                         </button>
                     </div>
                 </form>
+                
             </div>
         </div>
     </div>
